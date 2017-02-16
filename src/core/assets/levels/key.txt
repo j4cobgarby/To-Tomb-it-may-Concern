@@ -1,0 +1,17 @@
+KEY
+
+PROPERTIES must be exactly this format:
+width (tiles on the x-axis)
+length (tiles on the y-axis)
+playerspawn-tile-x
+playerspawn-tile-z
+
+FLOOR LEVEL
+c = cobblestone floor
+
+WALL LEVEL
+c = cobblestone wall
+r = red door
+g = green door
+b = blue door
+p = purple door
