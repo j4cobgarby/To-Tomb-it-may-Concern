@@ -8,7 +8,7 @@ In fact, the only parts not written in Java are a few utilities
 for generating assets, which are written in Python.<br>
 It's my *first* 3D game, as far as I can remember.<br>
 The models are all created in Blender, then exported using
-some special Blender addon I found, meaning I can import
+[some special Blender addon I found](https://github.com/Dancovich/libgdx_blender_g3d_exporter), meaning I can import
 objects as a `.g3dj` file, which is very useful.<br><br>
 At the time of writing this, you can't do much in the game.
 You can walk around a hardcoded level, and look at the amazing
