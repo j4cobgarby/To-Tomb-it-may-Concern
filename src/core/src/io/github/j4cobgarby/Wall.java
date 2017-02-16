@@ -11,6 +11,10 @@ public class Wall {
 	
 	public static class Types {
 		public static Model wall = Main.assets.get("wall.g3dj", Model.class); // c
+		public static Model redDoor = Main.assets.get("door-red.g3dj", Model.class); // r
+		public static Model greenDoor = Main.assets.get("door-green.g3dj", Model.class); // g
+		public static Model blueDoor = Main.assets.get("door-blue.g3dj", Model.class); // b
+		public static Model purpleDoor = Main.assets.get("door-purple.g3dj", Model.class); // p
 	}
 	
 	/*

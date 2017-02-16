@@ -82,7 +82,7 @@ public class Main extends ApplicationAdapter {
 		
 		player = new Player(0, 0, 0);
 				
-		lvl = new Level(Level.Levels.level1, 1, 0, 1);
+		lvl = new Level(Level.Levels.level1, 2, 0, 2);
 		
 		changeLevel(lvl);
 				

@@ -16,13 +16,13 @@ public class Level {
 				{ // Walls
 					"cccccccccc".toCharArray(),
 					"c        c".toCharArray(),
-					"c ccc  c c".toCharArray(),
+					"cccccrccbc".toCharArray(),
 					"c   c  c c".toCharArray(),
-					"c   c  c c".toCharArray(),
-					"c   c  c c".toCharArray(),
+					"c   g  c c".toCharArray(),
+					"ccccc  c c".toCharArray(),
 					"c   c  c c".toCharArray(),
 					"c   cccc c".toCharArray(),
-					"c   c    c".toCharArray(),
+					"c   p    c".toCharArray(),
 					"cccccccccc".toCharArray()
 					},
 				{ // Floor
@@ -61,8 +61,29 @@ public class Level {
 		for (int i = 0; i < arr.length; i++) {
 			ArrayList<Wall> tmp = new ArrayList<Wall>();
 			for (int n = 0; n < arr[i].length; n++) {
+				int posx, posz;
+				posx = arr.length - i;
+				posz = arr[i].length - n;
 				char c = arr[i][n];
-				if (c == 'c') tmp.add(new Wall(Wall.Types.wall, i, n));
+				switch (c) {
+				case 'c':
+					tmp.add(new Wall(Wall.Types.wall, posx, posz));
+					break;
+				case 'r':
+					tmp.add(new Wall(Wall.Types.redDoor, posx, posz));
+					break;
+				case 'g':
+					tmp.add(new Wall(Wall.Types.greenDoor, posx, posz));
+					break;
+				case 'b':
+					tmp.add(new Wall(Wall.Types.blueDoor, posx, posz));
+					break;
+				case 'p':
+					tmp.add(new Wall(Wall.Types.purpleDoor, posx, posz));
+					break;
+				default:
+					break;
+				}
 			}
 			result.add(tmp);
 		}
@@ -75,8 +96,11 @@ public class Level {
 		for (int i = 0; i < arr.length; i++) {
 			ArrayList<Floor> tmp = new ArrayList<Floor>();
 			for (int n = 0; n < arr[i].length; n++) {
+				int posx, posz;
+				posx = arr.length - i;
+				posz = arr[i].length - n;
 				char c = arr[i][n];
-				if (c == 'c') tmp.add(new Floor(Floor.Types.cobble, i, n));
+				if (c == 'c') tmp.add(new Floor(Floor.Types.cobble, posx, posz));
 			}
 			result.add(tmp);
 		}

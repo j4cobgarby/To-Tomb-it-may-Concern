@@ -23,6 +23,10 @@ public class Initialization {
 			Main.assets.load("bonepile.g3dj", Model.class);
 			Main.assets.load("cobble-floor.g3dj", Model.class);
 			Main.assets.load("wall.g3dj", Model.class);
+			Main.assets.load("door-red.g3dj", Model.class);
+			Main.assets.load("door-green.g3dj", Model.class);
+			Main.assets.load("door-blue.g3dj", Model.class);
+			Main.assets.load("door-purple.g3dj", Model.class);
 			
 			Main.assets.finishLoading(); // Pause until all assets are loaded
 		}
