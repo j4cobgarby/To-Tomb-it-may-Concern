@@ -8,6 +8,8 @@ import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.math.collision.BoundingBox;
 
 public class Player extends Cube {
+	BoundingBox bounds;
+	Vector3 boundCenter = Vector3.Zero;
 	/*
 	 * MOVEMENT
 	 */
@@ -20,7 +22,7 @@ public class Player extends Cube {
 	private final float velocityScalar = 0.78f;
 	/*
 	 * This is how fast the player turns */ 
-	private final float turnSpeed = 2.35f;
+	private final float turnSpeed = 3.3f;
 	/*
 	 * Decreases how fast one strafes */
 	private final float strafeScalar = 0.8f;
@@ -31,6 +33,12 @@ public class Player extends Cube {
 	 * If x y or z velocity are less than this, they're set
 	 * to 0 to save processing time for low numbers */
 	private final float zeroThreshold = 0.00001f;
+	
+	/*
+	 * The deltaX of the cursor position is multiplied by this
+	 * so that the rotation isn't TOO fast. It should be
+	 * negative. */
+	private final float deltaXScalar = -0.3f;
 	
 	/*
 	 * ITEM STUFF
@@ -74,9 +82,20 @@ public class Player extends Cube {
 		velocity = new Vector3(0, 0, 0);
 		
 		currentItem = Item.ItemModels.broadsword;
+		
+		bounds = new BoundingBox();
 	}
 
-	public void handleInput() {
+	public void update() {
+		/*
+		 * TODO: Optimise bounding box calculations
+		 */
+		instance.calculateBoundingBox(bounds);
+		bounds.mul(instance.transform);
+		Vector3 center = Vector3.Zero;
+		bounds.getCenter(center);
+		//System.out.println(bounds.toString() + " | center: " + center.toString());
+		
 		if (Gdx.input.isKeyPressed(Keys.ESCAPE)) Gdx.app.exit();
 		
 		if (velocity.x < zeroThreshold && velocity.x > -zeroThreshold) velocity.x = 0;
@@ -96,13 +115,15 @@ public class Player extends Cube {
 			velocity.x += moveVelocity * strafeScalar;
 		}
 		if (Gdx.input.isKeyPressed(rotLeftKey)) {
-			instance.transform.rotate(new Vector3(0, 1, 0), turnSpeed);
-			Main.cam.rotate(new Vector3(0, 1, 0), turnSpeed);	
+			instance.transform.rotate(Vector3.Y, turnSpeed);
+			Main.cam.rotate(Vector3.Y, turnSpeed);	
 		}
 		if (Gdx.input.isKeyPressed(rotRightKey)) {
-			instance.transform.rotate(new Vector3(0, 1, 0), -turnSpeed);
-			Main.cam.rotate(new Vector3(0, 1, 0), -turnSpeed);
+			instance.transform.rotate(Vector3.Y, -turnSpeed);
+			Main.cam.rotate(Vector3.Y, -turnSpeed);
 		}
+		instance.transform.rotate(Vector3.Y, Gdx.input.getDeltaX() * deltaXScalar);
+		Main.cam.rotate(Vector3.Y, Gdx.input.getDeltaX() * deltaXScalar);
 				
 		velocity.scl(velocityScalar);
 	

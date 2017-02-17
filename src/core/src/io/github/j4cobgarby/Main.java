@@ -16,7 +16,6 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator.FreeTypeFontParameter;
 import com.badlogic.gdx.graphics.g3d.Environment;
-import com.badlogic.gdx.graphics.g3d.Model;
 import com.badlogic.gdx.graphics.g3d.ModelBatch;
 import com.badlogic.gdx.graphics.g3d.ModelInstance;
 import com.badlogic.gdx.graphics.g3d.attributes.ColorAttribute;
@@ -32,7 +31,7 @@ public class Main extends ApplicationAdapter {
 	FrameBuffer fbo;
 	SpriteBatch fboBatch;
 	
-	private int fboSize = 5;
+	private int fboSize = 6;
 	
 	public static boolean debug = false;
 	
@@ -61,6 +60,8 @@ public class Main extends ApplicationAdapter {
 
 	@Override
 	public void create() {
+		Gdx.input.setCursorCatched(true);
+		
 		/*
 		 * Initialize the FrameBuffer. This is used to shrink the screen
 		 * resolution for the low-res effect.
@@ -107,11 +108,9 @@ public class Main extends ApplicationAdapter {
 
 	@Override
 	public void render() {
-		walls.get(0).printInfo();
-		
 		cam.update();
 		
-		player.handleInput();
+		player.update();
 		cam.position.set(player.getPos().add(0, 1.5f, 0));
 		
 		fbo.begin();

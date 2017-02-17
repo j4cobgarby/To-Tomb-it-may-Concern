@@ -21,7 +21,7 @@ public class Level {
 					"c   g  c c".toCharArray(),
 					"ccccc  c c".toCharArray(),
 					"c   c  c c".toCharArray(),
-					"c   cccc c".toCharArray(),
+					"c   ccc  c".toCharArray(),
 					"c   p    c".toCharArray(),
 					"cccccccccc".toCharArray()
 					},
@@ -63,7 +63,7 @@ public class Level {
 			for (int n = 0; n < arr[i].length; n++) {
 				int posx, posz;
 				posx = arr.length - i;
-				posz = arr[i].length - n;
+				posz = n;
 				char c = arr[i][n];
 				switch (c) {
 				case 'c':
@@ -81,8 +81,7 @@ public class Level {
 				case 'p':
 					tmp.add(new Wall(Wall.Types.purpleDoor, posx, posz));
 					break;
-				default:
-					break;
+				default: break;
 				}
 			}
 			result.add(tmp);
@@ -98,9 +97,14 @@ public class Level {
 			for (int n = 0; n < arr[i].length; n++) {
 				int posx, posz;
 				posx = arr.length - i;
-				posz = arr[i].length - n;
+				posz = n;
 				char c = arr[i][n];
-				if (c == 'c') tmp.add(new Floor(Floor.Types.cobble, posx, posz));
+				switch (c) {
+				case 'c':
+					tmp.add(new Floor(Floor.Types.cobble, posx, posz));
+					break;
+				default: break;
+				}
 			}
 			result.add(tmp);
 		}
