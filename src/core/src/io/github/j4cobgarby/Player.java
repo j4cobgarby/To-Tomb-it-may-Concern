@@ -13,6 +13,7 @@ public class Player extends Cube {
 	/*
 	 * MOVEMENT
 	 */
+	controlOption turnCtrl = controlOption.MOUSE;
 	/*
 	 * This is the velocity added on move. */
 	private final float moveVelocity = 0.038f;
@@ -38,7 +39,7 @@ public class Player extends Cube {
 	 * The deltaX of the cursor position is multiplied by this
 	 * so that the rotation isn't TOO fast. It should be
 	 * negative. */
-	private final float deltaXScalar = -0.3f;
+	private final float deltaXScalar = -0.2f;
 	
 	/*
 	 * ITEM STUFF
@@ -114,22 +115,30 @@ public class Player extends Cube {
 		if (Gdx.input.isKeyPressed(rightKey)) {
 			velocity.x += moveVelocity * strafeScalar;
 		}
-		if (Gdx.input.isKeyPressed(rotLeftKey)) {
-			instance.transform.rotate(Vector3.Y, turnSpeed);
-			Main.cam.rotate(Vector3.Y, turnSpeed);	
-		}
-		if (Gdx.input.isKeyPressed(rotRightKey)) {
-			instance.transform.rotate(Vector3.Y, -turnSpeed);
-			Main.cam.rotate(Vector3.Y, -turnSpeed);
-		}
-		instance.transform.rotate(Vector3.Y, Gdx.input.getDeltaX() * deltaXScalar);
-		Main.cam.rotate(Vector3.Y, Gdx.input.getDeltaX() * deltaXScalar);
-				
+		if (turnCtrl == controlOption.KEYBOARD) {
+			if (Gdx.input.isKeyPressed(rotLeftKey)) {
+				instance.transform.rotate(Vector3.Y, turnSpeed);
+				Main.cam.rotate(Vector3.Y, turnSpeed);	
+			}
+			if (Gdx.input.isKeyPressed(rotRightKey)) {
+				instance.transform.rotate(Vector3.Y, -turnSpeed);
+				Main.cam.rotate(Vector3.Y, -turnSpeed);
+			}
+		} else if (turnCtrl == controlOption.MOUSE) {
+			instance.transform.rotate(Vector3.Y, Gdx.input.getDeltaX() * deltaXScalar);
+			Main.cam.rotate(Vector3.Y, Gdx.input.getDeltaX() * deltaXScalar);
+		}		
+		
 		velocity.scl(velocityScalar);
 	
 		instance.transform.translate(velocity);
 		
 		currentItem.setPositionFromCamera();
+	}
+	
+	private enum controlOption {
+		MOUSE,
+		KEYBOARD
 	}
 	
 	public Vector3 getPos() {
